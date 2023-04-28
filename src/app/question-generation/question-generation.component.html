@@ -1,0 +1,63 @@
+<div id="wrapper"  class="jumbotron">
+        <hr />
+
+    <!-- <h2>Generate Questions</h2> -->
+
+    <div id="generateForm row">
+        <textarea style="height: 240px; margin-bottom: 10px;" #text class="form-control" rows="6" placeholder="Document text ..."></textarea>
+        
+        <input style="width: 200px; height: 50px; float: left; margin-right: 10px;" max="15" min="1" #n_ques type="number" class="form-control" placeholder="Number of questions ...">
+        <input style="width: 200px; height: 50px; float: left; margin-right: 10px;" max="20" min="1" #n_mcq type="number" class="form-control" placeholder="Number of MCQs ...">
+        <button style="height: 50px; float: right;" (click)="generate(text.value,n_ques.value,n_mcq.value)" type="button" class="btn btn-primary btn-block mt-3 mb-3">Generate</button>
+    </div>
+        
+    <div style="width: 1200px;" id="questionsBox" *ngIf="questions">
+        <div class="questionBox" *ngFor="let question of questions; let i = index" class="card mb-3">
+            <h5 class="card-header">Question {{i + 1}}</h5>
+
+            <div class="card-body">
+              <h6 class="card-title"> {{question.question}}</h6>
+            </div>
+
+            <div *ngFor='let distractor of question.mcq' class="answerBox">
+                <input *ngIf="checkAnswer(question,distractor) else notValid" type="text"  disabled value={{question.answer}} class="form-control is-valid" id="inputValid">
+                <ng-template #notValid> 
+                    <input type="text" value={{distractor}} disabled class="form-control is-invalid" id="inputInvalid">    
+                </ng-template>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+
+<div *ngIf="isLoading" class="spinner-book" role="status">
+    <div class="spinner_overlay"></div>
+    <div class="book  container d-flex align-items-center justify-content-center">
+        <div class="inner">
+          <div class="left"></div>
+          <div class="middle"></div>
+          <div class="right"></div>
+        </div>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+</div>  
